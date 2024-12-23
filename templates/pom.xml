@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>my-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging> <!-- Aplikasi Web, ubah menjadi war -->
+
+    <dependencies>
+        <!-- Dependency untuk JDBC MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
+        </dependency>
+    </dependencies>
+
+    <!-- Distribution Management (Hapus jika tidak perlu upload ke Maven Central) -->
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <!-- Azure Web App Maven Plugin -->
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>1.14.0</version> <!-- Pastikan menggunakan versi terbaru -->
+                <configuration>
+    <!-- Konfigurasi untuk Azure App Service -->
+    <resourceGroup>my-resource-group</resourceGroup>
+    <appName>my-app-service-name</appName>
+    <region>East US</region>
+    <runtime>
+        <os>linux</os>  <!-- Atau 'windows' jika Anda menggunakan Windows App Service -->
+        <javaVersion>11</javaVersion>  <!-- Versi Java yang sesuai -->
+        <webContainer>tomcat 9.0</webContainer>  <!-- Versi Tomcat, bisa disesuaikan -->
+    </runtime>
+    <deploymentType>war</deploymentType>
+    <srcPath>target/my-project.war</srcPath> <!-- Path ke file WAR -->
+</configuration>
+
+            </plugin>
+        </plugins>
+    </build>
+</project>
